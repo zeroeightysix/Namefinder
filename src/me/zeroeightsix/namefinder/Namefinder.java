@@ -16,7 +16,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import me.zeroeightsix.namefinder.control.AddPanel;
 import me.zeroeightsix.namefinder.control.CharacterEditor;
-import me.zeroeightsix.namefinder.control.ProxyPanel;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +55,7 @@ public class Namefinder extends Application {
 
     NameChecker nameChecker;
     AddPanel addPanel;
-    ProxyPanel proxyPanel;
+//    ProxyPanel proxyPanel;
     public static Stage STAGE;
 
     public static void main(String[] args) {
@@ -154,11 +153,11 @@ public class Namefinder extends Application {
         amountSpinner.getValueFactory().setValue(50);
         grid.add(amountSpinner, 1, 1);
 
-        Button proxyButton = new Button("Proxies");
-        grid.add(proxyButton, 2, 1);
-        proxyButton.setOnAction(event -> {
-            proxyPanel.show();
-        });
+//        Button proxyButton = new Button("Proxies");
+//        grid.add(proxyButton, 2, 1);
+//        proxyButton.setOnAction(event -> {
+//            proxyPanel.show();
+//        });
 
         Label min = new Label("Min length");
         grid.add(min, 0, 2);
@@ -278,7 +277,7 @@ public class Namefinder extends Application {
 
         editor = new CharacterEditor();
         addPanel = new AddPanel();
-        proxyPanel = new ProxyPanel();
+//        proxyPanel = new ProxyPanel();
 
         System.out.println("Window initiated");
     }

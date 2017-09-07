@@ -66,7 +66,8 @@ public class NameChecker extends Thread {
             List<String> toCheck = next();
             Namefinder.currentNames = toCheck;
             String[] taken = filterTakenNames(toCheck);
-            if (taken == null) { // An exception occured! We'll try again in a minute
+            if (taken == null) { // An exception occured! We'll try again in a minute (We've probably been blocked from the mojang servers)
+                System.out.println("Starting timeout..");
                 Namefinder.TIMEOUT = true;
                 Namefinder.nameView.refresh();
                 index--;
@@ -226,7 +227,6 @@ public class NameChecker extends Thread {
 
             return res;
         }catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
