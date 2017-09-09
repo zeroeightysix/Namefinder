@@ -14,6 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import me.zeroeightsix.namefinder.control.AddPanel;
 import me.zeroeightsix.namefinder.control.CharacterEditor;
 
@@ -151,6 +152,12 @@ public class Namefinder extends Application {
         amountSpinner.setEditable(true);
         amountSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,100000));
         amountSpinner.getValueFactory().setValue(50);
+
+        amountSpinner.focusedProperty().addListener((s, ov, nv) -> {
+            if (nv) return;
+            commitEditorText(amountSpinner);
+        });
+
         grid.add(amountSpinner, 1, 1);
 
 //        Button proxyButton = new Button("Proxies");
@@ -165,6 +172,10 @@ public class Namefinder extends Application {
         minSpinner.setEditable(true);
         minSpinner.setValueFactory((minFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,16)));
         minSpinner.getValueFactory().setValue(3);
+        minSpinner.focusedProperty().addListener((s, ov, nv) -> {
+            if (nv) return;
+            commitEditorText(minSpinner);
+        });
         grid.add(minSpinner, 1, 2);
 
         Label max = new Label("Max length");
@@ -173,6 +184,10 @@ public class Namefinder extends Application {
         maxSpinner.setEditable(true);
         maxSpinner.setValueFactory((maxFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,16)));
         maxSpinner.getValueFactory().setValue(6);
+        maxSpinner.focusedProperty().addListener((s, ov, nv) -> {
+            if (nv) return;
+            commitEditorText(maxSpinner);
+        });
         grid.add(maxSpinner, 3, 2);
 
         minSpinner.valueProperty().addListener(event -> {
@@ -328,6 +343,22 @@ public class Namefinder extends Application {
             } catch (UnknownHostException e) {
                 e.printStackTrace();
                 return false;
+            }
+        }
+    }
+
+    /**
+     * c&p from Spinner
+     */
+    private <T> void commitEditorText(Spinner<T> spinner) {
+        if (!spinner.isEditable()) return;
+        String text = spinner.getEditor().getText();
+        SpinnerValueFactory<T> valueFactory = spinner.getValueFactory();
+        if (valueFactory != null) {
+            StringConverter<T> converter = valueFactory.getConverter();
+            if (converter != null) {
+                T value = converter.fromString(text);
+                valueFactory.setValue(value);
             }
         }
     }
