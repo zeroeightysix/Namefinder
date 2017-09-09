@@ -46,7 +46,7 @@ public class CharacterEditor extends Stage {
         setPane.setVgap(10);
         Label label = new Label("Set:");
         ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll("Preset", "Pattern", "Custom");
+        comboBox.getItems().addAll("Preset", "Custom");
         comboBox.setValue("Preset");
 
         presetBox = createPresetBox();
